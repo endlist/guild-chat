@@ -9,6 +9,7 @@ class App extends Component {
     super();
     this.state = {
       messages: [],
+      userInput: '',
     };
 
     socket.on('message', (message) => {
@@ -18,27 +19,40 @@ class App extends Component {
     });
   }
 
-  send = (message) => {
-    socket.emit('message', message, socket.id);
-  }
+  onChange = (event) => {
+    const state = this.state;
+    state[event.target.name] = event.target.value;
+    this.setState(state);
+  };
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    const {userInput} = this.state;
+    const message = {
+      text: userInput,
+      date: new Date(),
+      author: `user ${socket.id}`,
+    };
+    socket.emit('message', message);
+    this.setState({ userInput: '' });
+  };
 
   render() {
-
     return (
-      <div className="App">
-        <div className="messages">
-          {this.state.messages.map((message, i) => <div key={i} className="message">
-          <span className="message-author">{message.author}: </span>
-          <span className="message-text">{message.text}</span>
-          <span className="message-date">{message.date.toString()}</span>
+      <div className='App'>
+        <div className='messages'>
+          {this.state.messages.map((message, i) => <div key={i} className='message'>
+          <span className='message-author'>{message.author}: </span>
+          <span className='message-text'>{message.text}</span>
+          <span className='message-date'>{message.date.toString()}</span>
         </div>
             )
           }
         </div>
-        <div style={{ textAlign: "center" }}>
-          <button onClick={() => this.send({ text: 'hello', date: new Date() }) }>Send Message</button>
-
-      </div>
+        <form onSubmit={this.onSubmit}>
+          <input type='text' name='userInput' value={this.state.userInput} onChange={this.onChange} />
+          <button type='submit'>Send Message</button>
+        </form>
       </div>
     );
   }
