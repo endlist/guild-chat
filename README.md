@@ -32,3 +32,4 @@ Go to `http://localhost:3000` from any two browser tabs and send messages from o
 * Timezones for timestamps (moment?)
 * Update for React best practices
 * Better styling
+* Handle socket/server disconnect

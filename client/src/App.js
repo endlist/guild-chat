@@ -1,37 +1,48 @@
 import React, { Component } from 'react';
 import socketIOClient from 'socket.io-client';
 import './App.css';
-import * as GenerateName from 'sillyname';
+import GenerateName from 'sillyname';
 
-const endpoint = 'http://0.0.0.0:4001';
-const socket  = socketIOClient(endpoint)
+const endpoint = 'http://127.0.0.1:4001';
+let socket;
 
 class App extends Component {
   constructor() {
     super();
+    socket = socketIOClient(endpoint);
     this.state = {
       messages: [],
       savedMessages: [],
       userInput: '',
-      userName: GenerateName()
+      userName: GenerateName(),
     };
+  }
 
+  componentDidMount() {
     socket.on('saved messages', (savedMessages) => {
-      const { messages } = savedMessages;
-      const formattedMessages = messages.map((message) => {
-        message.date = new Date(message.date);
-        return message;
-      });
-      this.setState({ savedMessages: formattedMessages });
+      this.handleSavedMessages(savedMessages);
     });
 
     socket.on('message', (message) => {
-      const messages = this.state.messages.slice();
-      message.date = new Date(message.date);
-      messages.push(message);
-      this.setState({ messages: messages });
+      this.handleMessage(message);
     });
   }
+
+  handleSavedMessages = (savedMessages) => {
+    const { messages } = savedMessages;
+    const formattedMessages = messages.map((message) => {
+      message.date = new Date(message.date);
+      return message;
+    });
+    this.setState({ savedMessages: formattedMessages });
+  };
+
+  handleMessage = (message) => {
+    const messages = this.state.messages.slice();
+    message.date = new Date(message.date);
+    messages.push(message);
+    this.setState({ messages: messages });
+  };
 
   onChange = (event) => {
     const state = this.state;
