@@ -33,3 +33,4 @@ Go to `http://localhost:3000` from any two browser tabs and send messages from o
 * Update for React best practices
 * Better styling
 * Handle socket/server disconnect
+* Focus on input

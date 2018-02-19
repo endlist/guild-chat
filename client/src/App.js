@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import socketIOClient from 'socket.io-client';
 import './App.css';
 import GenerateName from 'sillyname';
+import Message from './components/message';
 
 const endpoint = 'http://127.0.0.1:4001';
 let socket;
@@ -46,13 +47,17 @@ class App extends Component {
 
   onChange = (event) => {
     const state = this.state;
+    // keeps track of changes on any field
+    // though currently userInput is the only changing field--
+    // TODO: is there a better way to keep the data in sync this if there's only a single field?
+    console.log(event.target.name);
     state[event.target.name] = event.target.value;
     this.setState(state);
   };
 
   onSubmit = (event) => {
     event.preventDefault();
-    const {userInput, userName} = this.state;
+    const { userInput, userName } = this.state;
     const message = {
       text: userInput,
       date: new Date(),
@@ -67,26 +72,18 @@ class App extends Component {
       <div className='chatbox'>
         <div className='messages'>
           {this.state.savedMessages.map((message, i) =>
-            <div key={i} className='saved-message'>
-            <span className='message-author'>{message.author}: </span>
-            <span className='message-text'>{message.text}</span>
-            <span className='message-date'>{message.date.toLocaleTimeString()} {message.date.toLocaleDateString()}</span>
-          </div>
+            <Message message={ message } key={ i } className='saved-message' />
           )}
           <div className='welcome-message'>
             Welcome to the chat.
           </div>
           {this.state.messages.map((message, i) =>
-          <div key={i} className='message'>
-            <span className='message-author'>{message.author}: </span>
-            <span className='message-text'>{message.text}</span>
-            <span className='message-date'>{message.date.toLocaleTimeString()} {message.date.toLocaleDateString()}</span>
-          </div>
+            <Message message={ message } key={ i } />
             )
           }
         </div>
         <form onSubmit={this.onSubmit}>
-          <input type='text' name='userInput' id='user-input-search' value={this.state.userInput} onChange={this.onChange} />
+          <input type='text' name='userInput' id='user-input-search' value={ this.state.userInput } onChange={ this.onChange } />
           <button type='submit'>Send</button>
         </form>
       </div>
