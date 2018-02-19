@@ -2,7 +2,7 @@
 A very basic chat app.
 
 ## Prerequisites
-Uses MongoDB 3.6.2, please follow [installation instructions](https://docs.mongodb.com/manual/installation://docs.mongodb.com/manual/installation/) and start `mongod`
+Uses MongoDB 3.6.2, please follow [installation instructions](https://docs.mongodb.com/manual/installation/) and start `mongod`
 
 ## Start and Run App
 Terminal One
