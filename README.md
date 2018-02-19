@@ -17,7 +17,7 @@ cd server && npm start
 Go to `http://localhost:3000` from any two browser tabs and send messages from one and see the messages pop up in both tabs with the appropriate user assigned-- at this time it is more functioning as a group chat than instant messaging.
 
 ## Notes on Choices / Design
-* Went with a (M)ERN stack for a mix of familiarity and new tools.  Easy to get set Express and Node up quickly for a quick project, React for some experimenting.
+* Went with a MERN stack for a mix of familiarity and new tools.  Easy to get set Express and Node up quickly for a quick project, React for some experimenting.
 * Picked socket.io to get realtime messages, because I've used it a little before, and it was easy to integrate with the other tools.
 * Styling is very rudimentary at this time, just wanted the data to be clear.
 
