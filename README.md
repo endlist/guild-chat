@@ -7,11 +7,11 @@ Uses MongoDB 3.6.2, please follow [installation instructions](https://docs.mongo
 ## Start and Run App
 Terminal One
 ```
-cd client && npm start
+cd client && npm install && npm start
 ```
 Terminal Two
 ```
-cd server && npm start
+cd server && npm install && npm start
 ```
 
 Go to `http://localhost:3000` from any two browser tabs and send messages from one and see the messages pop up in both tabs with the appropriate user assigned-- at this time it is more functioning as a group chat than instant messaging.
@@ -21,7 +21,7 @@ Go to `http://localhost:3000` from any two browser tabs and send messages from o
 * Picked socket.io to get realtime messages, because I've used it a little before, and it was easy to integrate with the other tools.
 * Styling is very rudimentary at this time, just wanted the data to be clear.
 
-## TODO/Design Change
+## TODO/Design Change/Current limitations
 * Tests should be added in, they were skipped to iterate faster for a small project.
 * Does not work across the network because the server is local-- need to make the server not hardcoded.
 * Messages should be stored on a per-user basis and remembered for next session.
