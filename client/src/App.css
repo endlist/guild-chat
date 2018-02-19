@@ -1,5 +1,4 @@
 .chatbox {
-  text-align: center;
   height: 100%;
   width: 100%;
   background: skyblue;
@@ -8,8 +7,13 @@
   font-size: .8rem;
 }
 
-.chatbox .messages .message {
+.chatbox .messages .message,
+.chatbox .messages .saved-message {
   display: flex;
+}
+.chatbox .messages .saved-message {
+  color: grey;
+  font-style: italic;
 }
 
 .chatbox .messages .message-author {
@@ -24,7 +28,7 @@
 
 .chatbox .messages .message-date {
   flex: 1;
-  max-width: 10rem;
+  max-width: 9rem;
 }
 
 .chatbox form {
@@ -39,7 +43,6 @@
 
 .chatbox form input {
   flex-grow: 1;
-
 }
 
 .chatbox form button {

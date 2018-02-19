@@ -9,8 +9,15 @@ const model = require('./model.js');
 io.on('connection', socket => {
   console.log('user connected');
 
-  socket.on('message', (message) => {
-    io.sockets.emit('message', message);
+  model.message.find().then((messages) => {
+    io.sockets.emit('saved messages', {messages});
+  });
+
+  socket.on('message', (incoming) => {
+    const message = new model.message(incoming);
+    message.save().then(() => {
+      io.sockets.emit('message', message);
+    });
   });
 
   socket.on('disconnect', () => {

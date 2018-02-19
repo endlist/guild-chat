@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import socketIOClient from 'socket.io-client';
 import './App.css';
+import * as GenerateName from 'sillyname';
+
 const endpoint = 'http://0.0.0.0:4001';
 const socket  = socketIOClient(endpoint)
 
@@ -9,11 +11,23 @@ class App extends Component {
     super();
     this.state = {
       messages: [],
+      savedMessages: [],
       userInput: '',
+      userName: GenerateName()
     };
+
+    socket.on('saved messages', (savedMessages) => {
+      const { messages } = savedMessages;
+      const formattedMessages = messages.map((message) => {
+        message.date = new Date(message.date);
+        return message;
+      });
+      this.setState({ savedMessages: formattedMessages });
+    });
 
     socket.on('message', (message) => {
       const messages = this.state.messages.slice();
+      message.date = new Date(message.date);
       messages.push(message);
       this.setState({ messages: messages });
     });
@@ -27,11 +41,11 @@ class App extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    const {userInput} = this.state;
+    const {userInput, userName} = this.state;
     const message = {
       text: userInput,
       date: new Date(),
-      author: `user ${socket.id}`,
+      author: userName,
     };
     socket.emit('message', message);
     this.setState({ userInput: '' });
@@ -41,11 +55,22 @@ class App extends Component {
     return (
       <div className='chatbox'>
         <div className='messages'>
-          {this.state.messages.map((message, i) => <div key={i} className='message'>
-          <span className='message-author'>{message.author}: </span>
-          <span className='message-text'>{message.text}</span>
-          <span className='message-date'>{message.date.toString()}</span>
-        </div>
+          {this.state.savedMessages.map((message, i) =>
+            <div key={i} className='saved-message'>
+            <span className='message-author'>{message.author}: </span>
+            <span className='message-text'>{message.text}</span>
+            <span className='message-date'>{message.date.toLocaleTimeString()} {message.date.toLocaleDateString()}</span>
+          </div>
+          )}
+          <div className='welcome-message'>
+            Welcome to the chat.
+          </div>
+          {this.state.messages.map((message, i) =>
+          <div key={i} className='message'>
+            <span className='message-author'>{message.author}: </span>
+            <span className='message-text'>{message.text}</span>
+            <span className='message-date'>{message.date.toLocaleTimeString()} {message.date.toLocaleDateString()}</span>
+          </div>
             )
           }
         </div>
