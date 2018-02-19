@@ -1,28 +1,48 @@
-.App {
+.chatbox {
   text-align: center;
+  height: 100%;
+  width: 100%;
+  background: skyblue;
+  position: absolute;
+  bottom: 0;
+  font-size: .8rem;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.chatbox .messages .message {
+  display: flex;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.chatbox .messages .message-author {
+  flex: 1;
+  font-weight: bold;
+  max-width: 10rem;
 }
 
-.App-title {
-  font-size: 1.5em;
+.chatbox .messages .message-text {
+  flex-grow: 1;
 }
 
-.App-intro {
-  font-size: large;
+.chatbox .messages .message-date {
+  flex: 1;
+  max-width: 10rem;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.chatbox form {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+}
+
+.chatbox form {
+  width: 100%;
+}
+
+.chatbox form input {
+  flex-grow: 1;
+
+}
+
+.chatbox form button {
+  flex: 1;
+  max-width: 4rem;
 }

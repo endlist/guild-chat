@@ -39,7 +39,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className='App'>
+      <div className='chatbox'>
         <div className='messages'>
           {this.state.messages.map((message, i) => <div key={i} className='message'>
           <span className='message-author'>{message.author}: </span>
@@ -50,8 +50,8 @@ class App extends Component {
           }
         </div>
         <form onSubmit={this.onSubmit}>
-          <input type='text' name='userInput' value={this.state.userInput} onChange={this.onChange} />
-          <button type='submit'>Send Message</button>
+          <input type='text' name='userInput' id='user-input-search' value={this.state.userInput} onChange={this.onChange} />
+          <button type='submit'>Send</button>
         </form>
       </div>
     );
