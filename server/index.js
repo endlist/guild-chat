@@ -20,6 +20,10 @@ io.on('connection', socket => {
     });
   });
 
+  socket.on('user-typing', (user) => {
+    io.sockets.emit('user-typing', user);
+  });
+
   socket.on('disconnect', () => {
     console.log('disconnected');
   });
