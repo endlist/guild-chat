@@ -1,10 +1,13 @@
 .chatbox {
   height: 100%;
-  width: 100%;
   background: skyblue;
   position: absolute;
   bottom: 0;
   font-size: .8rem;
+}
+
+.chatbox.two {
+  right: 0;
 }
 
 .chatbox .messages .message,
